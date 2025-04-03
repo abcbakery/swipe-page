@@ -6,6 +6,7 @@
       body {
         margin: 0;
         background-color: white;
+        transition: background-color 0.3s ease;
       }
     </style>
   </head>
@@ -29,6 +30,22 @@
           direction = diffX > 0 ? "right" : "left";
         } else {
           direction = diffY > 0 ? "down" : "up";
+        }
+
+        // 방향에 따라 배경색 변경
+        switch (direction) {
+          case "up":
+            document.body.style.backgroundColor = "#ffd6d6"; // 연한 빨강
+            break;
+          case "down":
+            document.body.style.backgroundColor = "#d6ffd6"; // 연한 초록
+            break;
+          case "left":
+            document.body.style.backgroundColor = "#d6e0ff"; // 연한 파랑
+            break;
+          case "right":
+            document.body.style.backgroundColor = "#fff5d6"; // 연한 노랑
+            break;
         }
 
         console.log("Swipe:", direction);
