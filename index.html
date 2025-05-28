@@ -12,6 +12,8 @@
   </head>
   <body>
     <script>
+      const SERVER_URL = "http://192.168.0.101:5000/swipe"; // 너의 서버 IP로 바꿔줘
+
       let startX, startY;
 
       document.addEventListener("touchstart", function (e) {
@@ -32,23 +34,24 @@
           direction = diffY > 0 ? "down" : "up";
         }
 
-        // 방향에 따라 배경색 변경
+        // 배경색 변경
         switch (direction) {
-          case "up":
-            document.body.style.backgroundColor = "#ffd6d6"; // 연한 빨강
-            break;
-          case "down":
-            document.body.style.backgroundColor = "#d6ffd6"; // 연한 초록
-            break;
-          case "left":
-            document.body.style.backgroundColor = "#d6e0ff"; // 연한 파랑
-            break;
-          case "right":
-            document.body.style.backgroundColor = "#fff5d6"; // 연한 노랑
-            break;
+          case "up": document.body.style.backgroundColor = "#ffd6d6"; break;
+          case "down": document.body.style.backgroundColor = "#d6ffd6"; break;
+          case "left": document.body.style.backgroundColor = "#d6e0ff"; break;
+          case "right": document.body.style.backgroundColor = "#fff5d6"; break;
         }
 
         console.log("Swipe:", direction);
+
+        // 서버로 전송
+        fetch(SERVER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ direction: direction })
+        })
+        .then(res => console.log("✅ Sent to server"))
+        .catch(err => console.error("❌ Error:", err));
       });
     </script>
   </body>
